@@ -1,14 +1,12 @@
 
 package menu;
 
-
-
 import javax.swing.*;
 import OtherForms.Registrationform;
-import CRUDForms.IngredientsForm;
+import CRUDForms.ingredientsForm;
 import CRUDForms.ratingsform;
 import CRUDForms.recipelogsform;
-import CRUDForms.recipesForm;
+import CRUDForms.RecipesForm;
 import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 
@@ -47,7 +45,7 @@ import java.awt.event.ActionEvent;
 	            public void actionPerformed(ActionEvent e) {
 	                
 	                dispose(); 
-	                new IngredientsForm().setVisible(true); 
+	                new ingredientsForm().setVisible(true); 
 	            }
 	        });
 
@@ -56,7 +54,7 @@ import java.awt.event.ActionEvent;
 	            public void actionPerformed(ActionEvent e) {
 	                
 	                dispose(); 
-	                new recipesForm().setVisible(true); 
+	                new RecipesForm().setVisible(true); 
 	            }
 	        });
 	        ratingsButton.addActionListener(new ActionListener() {

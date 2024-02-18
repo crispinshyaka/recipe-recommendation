@@ -78,7 +78,7 @@ public class user_loginForm implements ActionListener {
     }
 
     private void openLoggedInForm(String first_name) {
-       loggedin_Form loggedInForm = new loggedin_Form();
+       loggedin_Form loggedInForm = new loggedin_Form(first_name);
         loggedInForm.setVisible(true);
     }
 

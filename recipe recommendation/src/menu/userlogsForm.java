@@ -17,19 +17,19 @@ public class userlogsForm extends JFrame implements ActionListener {
 	private JTextArea logTextArea;
     private JButton saveLogButton;
 
-    private static final String JDBC_URL = "jdbc:mysql:/localhost:3306/crispin_shyaka_222004852";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/crispin_shyaka_222004852";
     private static final String USERNAME = "shyaka";
     private static final String PASSWORD = "222004852";
 
-    private int userId;  // Assume you know the user ID
-    private int recipeId;  // Assume you know the recipe ID
+    private int log_Id;  // Assume you know the user ID
+    private int recipe_Id;  // Assume you know the recipe ID
 
     public userlogsForm(int userId, int recipeId) {
         setTitle("user log form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.userId = userId;
-        this.recipeId = recipeId;
+        this.log_Id = log_Id;
+        this.recipe_Id = recipe_Id;
 
         logTextArea = new JTextArea();
         logTextArea.setLineWrap(true);
@@ -60,10 +60,10 @@ public class userlogsForm extends JFrame implements ActionListener {
 
         try {
             try (Connection connection = getConnection()) {
-                String insertQuery = "INSERT INTO recipe_logs (recipe_id, user_id, log_text) VALUES (?, ?, ?)";
+                String insertQuery = "INSERT INTO userlog (log_id, user_id, action) VALUES (?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-                    preparedStatement.setInt(1, recipeId);
-                    preparedStatement.setInt(2, userId);
+                    preparedStatement.setInt(1, log_Id);
+                    preparedStatement.setInt(2, recipe_Id);
                     preparedStatement.setString(3, logText);
 
                     preparedStatement.executeUpdate();
@@ -86,10 +86,10 @@ public class userlogsForm extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-        	int userId = 1;  
-            int recipeId = 1;
+        	int log_Id = 1;  
+            int recipe_Id = 1;
              
-            new userlogsForm(userId,recipeId);
+            new userlogsForm(log_Id,recipe_Id);
         });
     }
 }

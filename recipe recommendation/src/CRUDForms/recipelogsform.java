@@ -17,7 +17,7 @@ public class recipelogsform extends JFrame implements ActionListener {
 	private JTextArea logTextArea;
     private JButton saveLogButton;
 
-    private static final String JDBC_URL = "jdbc:mysql:/localhost:3306/crispin_shyaka_222004852";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/crispin_shyaka_222004852";
     private static final String USERNAME = "shyaka";
     private static final String PASSWORD = "222004852";
 
@@ -60,7 +60,7 @@ public class recipelogsform extends JFrame implements ActionListener {
 
         try {
             try (Connection connection = getConnection()) {
-                String insertQuery = "INSERT INTO recipe_logs (recipe_id, user_id, log_text) VALUES (?, ?, ?)";
+                String insertQuery = "INSERT INTO recipelog (recipe_id, user_id, log_text) VALUES (?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
                     preparedStatement.setInt(1, recipeId);
                     preparedStatement.setInt(2, userId);

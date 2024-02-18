@@ -1,91 +1,61 @@
 package OtherForms;
+import javax.swing.*;
 
+import CRUDForms.RecommendedRecipesForm;
+import CRUDForms.RecipesForm;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class loggedin_Form extends JFrame {
-   
-	
-	/**
-	 * 
-	 */
-	
-	private static final long serialVersionUID = 1L;
-	private String loggedInUsername;
-	private String insertingredient;
-	
+public class loggedin_Form extends JFrame implements ActionListener {
+    private JLabel welcomeLabel;
+    private JTextArea ingredientsTextArea;
+    private JButton viewRecipesButton;
 
-    public loggedin_Form() {
-        this.loggedInUsername = loggedInUsername;
-		
-		this.insertingredient = insertingredient;
+    private String first_name;
 
-        setTitle("Logged In Form");
-        setSize(400, 300);
+    public loggedin_Form(String first_name) {
+        this.first_name = first_name;
+
+        setTitle("User Home Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(null); 
+        welcomeLabel = new JLabel("Welcome, " + first_name + "!");
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        welcomeLabel.setBounds(20, 20, 300, 30);
+        ingredientsTextArea = new JTextArea();
+        ingredientsTextArea.setLineWrap(true);
+        ingredientsTextArea.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(ingredientsTextArea);
+        scrollPane.setBounds(20, 60, 400, 100);
 
-        JLabel welcomeLabel = new JLabel("Welcome, " + loggedInUsername + "!");
-        JLabel usernameLabel = new JLabel("Username:");
-        JLabel insertingredientLabel = new JLabel("ingredients:");
+        viewRecipesButton = new JButton("View Recipes");
+        viewRecipesButton.setBounds(20, 180, 150, 30);
+        viewRecipesButton.addActionListener(this);
 
-        JTextField usernameField = new JTextField(loggedInUsername);
-        usernameField.setEditable(false);
-        JTextField insertingredientField = new JTextField(insertingredient);
-        insertingredientField.setEditable(true);
 
-        JButton logoutButton = new JButton("Logout");
-        JButton viewrecipeButton = new JButton("View recipe");
-
-        welcomeLabel.setBounds(50, 30, 300, 30);
-        usernameLabel.setBounds(50, 80, 80, 30);
-        insertingredientLabel.setBounds(50, 130, 130, 30);
-
-        usernameField.setBounds(140, 80, 200, 30);
-        insertingredientField.setBounds(140, 120, 200, 30);
-
-        viewrecipeButton.setBounds(50, 180, 150, 30);
-        
-
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                dispose();
-                new user_loginForm().actionPerformed(e); 
-            }
-        });
-
-        viewrecipeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	 dispose();
-                 new recommendations().actionPerformed(e);
-               
-           
-                JOptionPane.showMessageDialog(loggedin_Form.this, "Viewing recipe for " + loggedInUsername);
-            }
-        });
-
-        panel.add(welcomeLabel);
-        panel.add(usernameLabel);
-        panel.add(usernameField);
-        panel.add(insertingredientField);
-        panel.add(viewrecipeButton);
-        panel.add(logoutButton);
-
-        getContentPane().add(panel);
+        setLayout(null);
+        add(welcomeLabel);
+        add(viewRecipesButton);
+        add(scrollPane);
+        setSize(450, 250);
+        setLocationRelativeTo(null); // Center the frame on the screen
+        setVisible(true);
+    }
+    private void viewRecipes() {
+        String ingredients = ingredientsTextArea.getText();
+        new RecommendedRecipesForm(first_name, ingredients);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new loggedin_Form().setVisible(true);
-            }
-        });
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == viewRecipesButton) {
+            viewRecipes();
+        }
     }
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> new loggedin_Form("first_name"));
+}
 }
